@@ -1,0 +1,22 @@
+<tabs>
+    <tab
+        barColorWhenSelected="@color/colorBottombarHome"
+        icon="@mipmap/ic_home"
+        id="@+id/tab_home"
+        title="home"/>
+    <tab
+        barColorWhenSelected="@color/colorBottombarOrder"
+        icon="@mipmap/ic_order"
+        id="@+id/tab_order"
+        title="order"/>
+    <tab
+        barColorWhenSelected="@color/colorBottombarMe"
+        icon="@mipmap/ic_me"
+        id="@+id/tab_me"
+        title="me"/>
+    <tab
+        barColorWhenSelected="@color/colorBottombarMore"
+        icon="@mipmap/ic_more"
+        id="@+id/tab_more"
+        title="more"/>
+</tabs>

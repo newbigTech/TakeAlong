@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v4.widget.NestedScrollView
+        android:id="@+id/main_nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.widget.NestedScrollView>-->
+    <FrameLayout
+        android:id="@+id/main_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/main_bottombar_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        app:bb_activeTabAlpha="1"
+        app:bb_activeTabColor="#fff"
+        app:bb_badgeBackgroundColor="@color/colorAccent"
+        app:bb_behavior="shy|underNavbar"
+        app:bb_inActiveTabAlpha="0.6"
+        app:bb_inActiveTabColor="#fff"
+        app:bb_showShadow="true"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"/>
+    <!--
+    app:bb_behavior="shifting"隐藏文字,shy需要配合Coodination
+    app:bb_tabletMode="true"平板的侧边效果
+    app:bb_titleTextAppearance="@style/MyTextAppearance"
+    app:bb_titleTypeFace="fonts/MySuperDuperFont.ttf"-->
+
+    <!--<LinearLayout
+        android:id="@+id/main_bottome_switcher_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/home"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="@color/main_bottom_tv_color"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/order"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="订单"
+                android:textColor="@color/main_bottom_tv_color"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/me"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="个人"
+                android:textColor="@color/main_bottom_tv_color"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/more"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="更多"
+                android:textColor="@color/main_bottom_tv_color"/>
+        </FrameLayout>
+    </LinearLayout>-->
+</android.support.design.widget.CoordinatorLayout>
+
