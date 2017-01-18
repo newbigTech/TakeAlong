@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import com.cool.takealong.R;
 import com.cool.takealong.R2;
+import com.cool.takealong.dagger2.component.DaggerHomeFragmentComponent;
+import com.cool.takealong.dagger2.module.HomeFragmentModule;
+import com.cool.takealong.presenter.HomeFragmentPresenter;
 import com.cool.takealong.ui.adapter.HomeRvAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +45,11 @@ public class HomeFragment extends Fragment {
     LinearLayout mLlTitleSearch;
     @BindView(R2.id.ll_title_container)
     LinearLayout mLlTitleContainer;
-    private HomeRvAdapter mAdapter;
 
+    @Inject
+    HomeFragmentPresenter mHomeFragmentPresenter;
+
+    public HomeRvAdapter mHomeRvAdapter;
     private int mLlTitleDistance;
 
     @Override
@@ -59,8 +64,11 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreateView" + Thread.currentThread());
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        mAdapter = new HomeRvAdapter(getContext());
-        mRvHome.setAdapter(mAdapter);
+
+        DaggerHomeFragmentComponent.builder().homeFragmentModule(new HomeFragmentModule(this)).build().in(this);
+
+        mHomeRvAdapter = new HomeRvAdapter(getContext());
+        mRvHome.setAdapter(mHomeRvAdapter);
         mRvHome.setLayoutManager(new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false));
         mRvHome.setItemAnimator(new DefaultItemAnimator());
         return view;
@@ -70,12 +78,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onViewCreated" + Thread.currentThread());
         // 这里可以做耗时操作
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            datas.add("data >> " + i);
-        }
-        // TODO: 2017/1/16 016  
-        mAdapter.setDatas(datas, datas);
+        mHomeFragmentPresenter.loadHomeData();
     }
 
     @Override
@@ -86,18 +89,18 @@ public class HomeFragment extends Fragment {
         mLlTitleContainer.measure(0, 0);
         mLlTitleDistance = mLlTitleContainer.getMeasuredHeight();
         mRvHome.addOnScrollListener(mOnScrollListener);
-        mAdapter.setOnItemViewClickListener(mOnItemViewClickListener);
+        mHomeRvAdapter.setOnItemViewClickListener(mOnItemViewClickListener);
     }
 
     private HomeRvAdapter.OnItemViewClickListener mOnItemViewClickListener = new HomeRvAdapter.OnItemViewClickListener() {
         @Override
         public void onItemClick(View view, int itemViewType) {
-            
+
         }
 
         @Override
         public void onItemLongClick(View view, int itemViewType) {
-            
+
         }
     };
 
@@ -132,7 +135,7 @@ public class HomeFragment extends Fragment {
         mRvHome.removeOnScrollListener(mOnScrollListener);
         mOnScrollListener = null;
         mOnItemViewClickListener = null;
-        mAdapter = null;
+        mHomeRvAdapter = null;
     }
 
 }

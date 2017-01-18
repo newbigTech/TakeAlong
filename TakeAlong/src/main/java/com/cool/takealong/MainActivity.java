@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener, OnTabReselectListener {
 
-
     @BindView(R2.id.main_fragment_container)
     FrameLayout mMainFragmentContainer;
     @BindView(R2.id.main_bottombar_switcher)
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
         mFm = getSupportFragmentManager();
 
-
         mMainBottombarSwitcher.setOnTabSelectListener(this);
         mMainBottombarSwitcher.setOnTabReselectListener(this);
 
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     @Override
     public void onTabSelected(@IdRes int tabId) {
+        // TODO: 2017/1/19 019 need Fragment Factory 
         switch (tabId) {
             case R.id.tab_home:
                 FragmentTransaction ft = mFm.beginTransaction();

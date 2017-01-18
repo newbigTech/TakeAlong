@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cool.takealong.R;
 import com.cool.takealong.R2;
+import com.cool.takealong.model.net.beans.Seller;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import java.util.ArrayList;
@@ -28,22 +29,20 @@ import butterknife.ButterKnife;
  *  @描述：    TODO
  */
 public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = "HomeRvAdapter";
+    
     public static final int TYPE_TITLE = 0;        //头部
     public static final int TYPE_NEARBYSELLER = 1; //附近商家
     public static final int TYPE_OTHERSELLER = 2; //其他商家
     public static final int TYPE_DIVISION = 3;   // 分割线
     public static final int TYPE_LOADMORE = 4;  // 加载更多
 
-    private List<String> mNearbySellers = new ArrayList<>();
-    private List<String> mOtherSellers = new ArrayList<>();
+    private List<Seller> mNearbySellers = new ArrayList<>();
+    private List<Seller> mOtherSellers = new ArrayList<>();
     private final LayoutInflater mInflater;
-    private Context mContext;
-    private int GroupSize = 10;
+    private final int GROUPSIZE = 10;
 
     public HomeRvAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-        mContext = context;
     }
 
     @Override
@@ -74,7 +73,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case TYPE_OTHERSELLER:
                 int index = position - 1 - mNearbySellers.size() - 1;
-                ((SellerViewHolder) holder).setData(mOtherSellers.get(index - index % (GroupSize + 1)));
+                ((SellerViewHolder) holder).setData(mOtherSellers.get(index - index % (GROUPSIZE + 1)));
                 break;
             case TYPE_DIVISION:
                 ((DivisionViewHolder) holder).setData("DivisionView");
@@ -109,7 +108,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if (position == getItemCount() - 1) {
             // 加载更多
             return HomeItemTypeEnum.Type_LoadMore.typeValue;
-        } else if (position % (GroupSize + 1) == 0) {
+        } else if (position % (GROUPSIZE + 1) == 0) {
             // 分割线
             return HomeItemTypeEnum.Type_Division.typeValue;
         } else if (position >= 1 && position <= mNearbySellers.size()) {
@@ -141,14 +140,14 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 + (null != mNearbySellers ? mNearbySellers.size() : 0)
                 + (null != mNearbySellers && mNearbySellers.size() > 0
                 && null != mOtherSellers && mOtherSellers.size() > 0 ? 1 : 0) //分割线Nearby
-                + (null != mOtherSellers ? (mOtherSellers.size() - 1) / GroupSize : 0); //分割线Other
+                + (null != mOtherSellers ? (mOtherSellers.size() - 1) / GROUPSIZE : 0); //分割线Other
     }
 
     /**
      * @param type     false表示附近商家, true表示其他商家
      * @param position 添加一个条目到指定位置
      */
-    public void addData(boolean type, int position, String data) {
+    public void addData(boolean type, int position, Seller data) {
         if (type) {
             mOtherSellers.add(position, data);
         } else {
@@ -170,7 +169,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         notifyItemRemoved(position);
     }
 
-    public void setDatas(List<String> nearbySellers, List<String> otherSellers) {
+    public void setDatas(List<Seller> nearbySellers, List<Seller> otherSellers) {
         this.mNearbySellers.addAll(nearbySellers);
         this.mOtherSellers.addAll(otherSellers);
         notifyDataSetChanged();
@@ -224,7 +223,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ButterKnife.bind(this, view);
         }
 
-        public void setData(String data) {
+        public void setData(Seller data) {
         }
     }
 
