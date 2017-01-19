@@ -1,5 +1,6 @@
-package com.cool.takealong.model.net.beans;
+package com.cool.takealong.model.net;
 
+import com.cool.takealong.model.net.beans.ResponseInfo;
 import com.cool.takealong.util.Constants;
 
 import retrofit2.Call;

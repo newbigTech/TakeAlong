@@ -2,7 +2,7 @@ package com.cool.takealong.presenter;
 
 import android.util.Log;
 
-import com.cool.takealong.model.net.beans.RequestApi;
+import com.cool.takealong.model.net.RequestApi;
 import com.cool.takealong.model.net.beans.ResponseInfo;
 import com.cool.takealong.util.Constants;
 
@@ -47,7 +47,7 @@ public abstract class BasePresenter {
                 parserJson(data);
             } else {
                 //失败，根据自己情况定义错误码，比如-3是返回为空，-4服务器内部错误，
-                throw new RuntimeException("服务器哥们，你又写错代码了");
+                throw new RuntimeException("服务器代码错误");
             }
         }
 
