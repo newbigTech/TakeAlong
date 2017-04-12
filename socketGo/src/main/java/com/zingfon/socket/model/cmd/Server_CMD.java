@@ -23,6 +23,7 @@ public class Server_CMD {
     public class C_0x8103 {
         //public UNKOWN paraList;//参数项列表
     }
+
     /**
      * 查询ISU参数  p20,表13
      */
@@ -126,8 +127,8 @@ public class Server_CMD {
      * 车辆控制  p28，表39
      */
     public class C_0x8500 {
-        public byte contrlItem; //控制项。位0：恢复/断开车辆油路；位1：恢复/断开车辆电路；位2：车门解锁/加锁；位3：车辆解除锁定/锁定
-        public byte contrlOrder; //控制命令。
+        public byte controlItem; //控制项。0：恢复/断开车辆油路；1：恢复/断开车辆电路；2：车门解锁/加锁；3：车辆解除锁定/锁定
+        public byte controlOrder; //控制命令。0:恢复/解锁，1:断开/锁定
     }
 
     /**
@@ -205,7 +206,7 @@ public class Server_CMD {
         public byte typeId; //TypeID。见表5
         public short dataType; //DataType。位0~2：压缩算法描述：000：数据无压缩；001：gz压缩；其他RFU；位3：1：密文；0：明文；4~15预留
         public byte[] dataPackage;  //数据包。采用加密模式时，不超过384byte；采用非加密时，不超过512byte。
-                                    //数据内容为通信协议体（命令字2byte+数据区）的明文或密文，ISU负责协议的组包
+        //数据内容为通信协议体（命令字2byte+数据区）的明文或密文，ISU负责协议的组包
     }
 
     /**
@@ -232,7 +233,7 @@ public class Server_CMD {
      */
     public class C_0x8B11 {
         public byte[] deviceId; //巡检设备类型代码。数组大小n根据巡检设备的数量而定：
-                                // n=0时，表示对所有设备巡检；n≠0时，表示对指定的一个或多个设备进行巡检
+        // n=0时，表示对所有设备巡检；n≠0时，表示对指定的一个或多个设备进行巡检
     }
 
 

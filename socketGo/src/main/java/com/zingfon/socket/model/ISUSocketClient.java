@@ -3,6 +3,7 @@ package com.zingfon.socket.model;
 import com.zingfon.socket.model.cmd.ISU_CMD;
 import com.zingfon.socket.util.SocketUtil;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,32 +13,40 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by 李荣修 on 2017/3/13 15:31
  */
-public class IsuSocketClient {
-    private static String tag = IsuSocketClient.class.getSimpleName();
-    private static IsuSocketClient IsuSocketClient;
+public class ISUSocketClient {
+    private static String tag = ISUSocketClient.class.getSimpleName();
+    private static ISUSocketClient ISUSocketClient;
     private static Socket socketClient;
     private static OutputStream outputStream;
     private static InputStream inputStream;
+    private static boolean isConnected = false;
     private static AtomicInteger atomicId = new AtomicInteger();
 
-    public static IsuSocketClient getInstance() {
-        if (IsuSocketClient == null) {
-            IsuSocketClient = new IsuSocketClient();
+    private ISUSocketClient() {
+        try {
+            socketClient = new Socket("183.62.157.52", 30002);
+            //设置read()方法的阻塞时间，单位：毫秒，超时将引发SocketTimeoutException
+            socketClient.setSoTimeout(15000);
+            //关闭Nagle算法，产生数据后立即发送
+            socketClient.setTcpNoDelay(true);
+            inputStream = socketClient.getInputStream();
+            outputStream = socketClient.getOutputStream();
+            isConnected = true;
+        } catch (IOException e) {
+            isConnected = false;
+            e.printStackTrace();
         }
-        if (socketClient == null) {
-            try {
-                socketClient = new Socket("183.62.157.52", 30002);
-                //设置read()方法的阻塞时间，单位：毫秒，超时将引发SocketTimeoutException
-                socketClient.setSoTimeout(15000);
-                //关闭Nagle算法，产生数据后立即发送
-                socketClient.setTcpNoDelay(true);
-                inputStream = socketClient.getInputStream();
-                outputStream = socketClient.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
+    }
+
+    public static ISUSocketClient getInstance() {
+        if (ISUSocketClient == null) {
+            synchronized (ISUSocketClient.class) {
+                if (ISUSocketClient == null) {
+                    ISUSocketClient = new ISUSocketClient();
+                }
             }
         }
-        return IsuSocketClient;
+        return ISUSocketClient;
     }
 
     /**
@@ -67,7 +76,26 @@ public class IsuSocketClient {
             outputStream.write(bytes);
             outputStream.flush();
         } catch (IOException e) {
+            //TODO 是否需要？
+            isConnected = false;
             e.printStackTrace();
+        }
+    }
+
+    private void receiveData() {
+        while (isConnected) {
+            //DataInputStream dis = new DataInputStream(inputStream);
+            BufferedInputStream bis = new BufferedInputStream(inputStream);
+
+            byte[] buffer = new byte[1];
+            try {
+                while (bis.read(buffer) != -1) {
+                    //判断是否读到消息末尾
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//    ByteArrayInputStream bais=new ByteArrayInputStream(buffer);
         }
     }
 
