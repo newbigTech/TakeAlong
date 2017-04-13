@@ -8,7 +8,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.zingfon.taxi"
+        applicationId "com.zingfon.socket"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -22,6 +22,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+apt {
+    arguments {
+        eventBusIndex "com.zingfon.socket.model.MyEventBusIndex"
     }
 }
 
@@ -45,10 +51,11 @@ dependencies {
 //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //网络与数据解析
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'//x
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'//x
     //数据库操作
     compile 'org.greenrobot:greendao:3.2.2'
-    //进程内通信
+    //进程内通信，必须带上EventBus processor
     compile 'org.greenrobot:eventbus:3.0.0'
+    apt 'org.greenrobot:eventbus-annotation-processor:3.0.1'
 }

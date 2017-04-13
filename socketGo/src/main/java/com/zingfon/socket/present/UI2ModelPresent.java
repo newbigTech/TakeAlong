@@ -1,7 +1,14 @@
 package com.zingfon.socket.present;
 
+import android.util.Log;
+
+import com.zingfon.socket.model.event.DataSynEvent;
 import com.zingfon.socket.model.infc.ISUSocketClientInfc;
 import com.zingfon.socket.present.infc.UI2ModelPresentInfc;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /*
  *  @项目名：  TakeAlong 
@@ -9,7 +16,7 @@ import com.zingfon.socket.present.infc.UI2ModelPresentInfc;
  *  @文件名:   UI2ModelPresent
  *  @创建者:   cjf
  *  @创建时间:  2017/4/13 15:50
- *  @描述：    TODO 1.注册接受EventBus事件；2.1转换bean2net；2.2发起socket请求
+ *  @描述：    TODO 1.订阅EventBus事件；2.1转换bean2net；2.2发起socket请求
  */
 public class UI2ModelPresent implements UI2ModelPresentInfc {
 
@@ -17,5 +24,17 @@ public class UI2ModelPresent implements UI2ModelPresentInfc {
 
     public UI2ModelPresent(ISUSocketClientInfc socketClient) {
         mIsuSocketClient = socketClient;
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING, priority = 100, sticky = false)
+    public void onDataSynEvent(DataSynEvent event) {
+        Log.e("Model2UIPresent", "event---->" + event.getCount());
+        EventBus.getDefault().cancelEventDelivery(event); //优先级高的订阅者可以终止事件往下传递
+    }
+
+    public void destroyInstance() {
+        EventBus.getDefault().unregister(this);
     }
 }
