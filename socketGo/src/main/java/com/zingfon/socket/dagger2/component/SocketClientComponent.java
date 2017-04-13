@@ -1,6 +1,9 @@
 package com.zingfon.socket.dagger2.component;
 
-import dagger.Module;
+import com.zingfon.socket.dagger2.module.SocketClientModule;
+import com.zingfon.socket.model.ISUSocketClient;
+
+import dagger.Component;
 
 /*
  *  @项目名：  TakeAlong 
@@ -8,11 +11,10 @@ import dagger.Module;
  *  @文件名:   SocketClientComponent
  *  @创建者:   cjf
  *  @创建时间:  2017/4/12 18:03
- *  @描述：    TODO
+ *  @描述：    TODO 
  */
-@Module()
-public class SocketClientComponent {
-    
-    
-    
+@Component(modules = {SocketClientModule.class})
+public interface SocketClientComponent {
+
+    void inject(ISUSocketClient socketClient); //注入容器（被注入的对象）
 }

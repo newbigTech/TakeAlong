@@ -1,6 +1,10 @@
 package com.zingfon.socket.model;
 
+import com.zingfon.socket.dagger2.component.DaggerSocketClientComponent;
+import com.zingfon.socket.dagger2.module.SocketClientModule;
 import com.zingfon.socket.model.cmd.ISU_CMD;
+import com.zingfon.socket.model.infc.ISUSocketClientInfc;
+import com.zingfon.socket.present.infc.Model2UIPresentInfc;
 import com.zingfon.socket.util.SocketUtil;
 
 import java.io.BufferedInputStream;
@@ -10,19 +14,29 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.inject.Inject;
+
 /**
  * Created by 李荣修 on 2017/3/13 15:31
+ * TODO 依赖需求方
  */
-public class ISUSocketClient {
+public class ISUSocketClient implements ISUSocketClientInfc {
     private static String tag = ISUSocketClient.class.getSimpleName();
-    private static ISUSocketClient ISUSocketClient;
+    private static ISUSocketClient mISUSocketClient;
     private static Socket socketClient;
     private static OutputStream outputStream;
     private static InputStream inputStream;
     private static boolean isConnected = false;
     private static AtomicInteger atomicId = new AtomicInteger();
+    
+    @Inject
+    Model2UIPresentInfc mModel2UIPresentInfc;
 
     private ISUSocketClient() {
+        
+        //只注入一次，保持在内存
+        DaggerSocketClientComponent.builder().socketClientModule(new SocketClientModule()).build().inject(ISUSocketClient.this);
+        
         try {
             socketClient = new Socket("183.62.157.52", 30002);
             //设置read()方法的阻塞时间，单位：毫秒，超时将引发SocketTimeoutException
@@ -39,14 +53,14 @@ public class ISUSocketClient {
     }
 
     public static ISUSocketClient getInstance() {
-        if (ISUSocketClient == null) {
+        if (mISUSocketClient == null) {
             synchronized (ISUSocketClient.class) {
-                if (ISUSocketClient == null) {
-                    ISUSocketClient = new ISUSocketClient();
+                if (mISUSocketClient == null) {
+                    mISUSocketClient = new ISUSocketClient();
                 }
             }
         }
-        return ISUSocketClient;
+        return mISUSocketClient;
     }
 
     /**

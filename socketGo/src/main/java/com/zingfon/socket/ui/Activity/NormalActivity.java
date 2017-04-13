@@ -1,4 +1,4 @@
-package com.zingfon.socket.ui;
+package com.zingfon.socket.ui.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,8 +17,6 @@ import com.zingfon.socket.R;
  */
 public class NormalActivity extends AppCompatActivity {
 
-    //@Inject ...Presenter
-    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,8 +1,10 @@
 package com.zingfon.socket.dagger2.module;
 
-import com.zingfon.socket.model.ISUSocketClient;
+import com.zingfon.socket.present.Model2UIPresent;
+import com.zingfon.socket.present.infc.Model2UIPresentInfc;
 
 import dagger.Module;
+import dagger.Provides;
 
 /*
  *  @项目名：  TakeAlong 
@@ -10,15 +12,17 @@ import dagger.Module;
  *  @文件名:   SocketClientModule
  *  @创建者:   cjf
  *  @创建时间:  2017/4/12 17:46
- *  @描述：    TODO
+ *  @描述：    TODO 具体类的提供方的集合, 在依赖注入中使用
  */
 @Module
 public class SocketClientModule {
 
-    private final ISUSocketClient mISUSocketClient;
-
     public SocketClientModule() {
-        mISUSocketClient = ISUSocketClient.getInstance();
+        //this.mISUSocketClient = socketClient;
     }
     
+    @Provides
+    public Model2UIPresentInfc provideModel2UIPresent() {
+        return new Model2UIPresent();
+    }
 }
