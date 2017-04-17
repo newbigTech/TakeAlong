@@ -4,7 +4,7 @@ import com.zingfon.socket.dagger2.component.DaggerSocketClientComponent;
 import com.zingfon.socket.dagger2.module.SocketClientModule;
 import com.zingfon.socket.model.cmd.ISU_CMD;
 import com.zingfon.socket.model.infc.ISUSocketClientInfc;
-import com.zingfon.socket.present.infc.Model2UIPresentInfc;
+import com.zingfon.socket.present.infc.StorePresentInfc;
 import com.zingfon.socket.util.SocketUtil;
 
 import java.io.BufferedInputStream;
@@ -30,7 +30,7 @@ public class ISUSocketClient implements ISUSocketClientInfc {
     private static AtomicInteger atomicId = new AtomicInteger();
     
     @Inject
-    Model2UIPresentInfc mModel2UIPresentInfc;
+    StorePresentInfc mStorePresentInfc;
 
     private ISUSocketClient() {
         

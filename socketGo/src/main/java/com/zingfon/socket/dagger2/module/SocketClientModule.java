@@ -1,7 +1,7 @@
 package com.zingfon.socket.dagger2.module;
 
-import com.zingfon.socket.present.Model2UIPresent;
-import com.zingfon.socket.present.infc.Model2UIPresentInfc;
+import com.zingfon.socket.present.StorePresent;
+import com.zingfon.socket.present.infc.StorePresentInfc;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,7 +22,7 @@ public class SocketClientModule {
     }
     
     @Provides
-    public Model2UIPresentInfc provideModel2UIPresent() {
-        return new Model2UIPresent();
+    public StorePresentInfc provideModel2UIPresent() {
+        return new StorePresent();
     }
 }
