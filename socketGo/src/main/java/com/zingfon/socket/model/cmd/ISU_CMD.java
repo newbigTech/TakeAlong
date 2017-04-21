@@ -4,18 +4,12 @@ package com.zingfon.socket.model.cmd;
  * Created by 李荣修 on 2017/2/28 10:51
  * 指令命名规则：指令发出方（服务器端为C, 智能服务终端为D, 计价器为M(eter) , 服务评价器为S(service)，顶灯为L(ight)）+ 下划线 + 消息ID
  * 如指令重复，则根据接收对象修改为D2M_等形式
- * 本文件为智能服务终端发出的指令
- * 数据类型：UINT8=byte（1字节）、UINT16=short（2字节）、UINT32=int（4字节）、BCD[n]=byte[n]，加前缀bcd_
+ * 本文件为智能服务终端发出的指令，指令用D_开头
+ * 数据类型：UINT8=byte（1字节）、UINT16=short（2字节）、UINT32=int（4字节）、BCD[n]=byte[n]加前缀bcd_
  */
 public class ISU_CMD {
-    /**
-     * ISU通用应答，p16，表8
-     */
-    public class D_0x0001 {
-        public short responseNo;//应答流水号
-        public short responseId;//应答ID
-        public byte responseResult;//结果
-    }
+    
+
     /**
      * 心跳指令，P16，10.3.5.3
      */
@@ -33,24 +27,9 @@ public class ISU_CMD {
      */
     public final int D_0x0014 = 0x0014;
 
-    /**
-     * 查询ISU参数应答  p20,表14
-     */
-    public class D_0x0104 {
-        public short responseId;//应答流水号
-        // public unknown ;//参数项列表
-    }
+    
 
-    /**
-     * ISU升级结果报告信息  p21,表18
-     */
-    public class D_0x0105 {
-        public byte deviceType;//设备类型
-        public byte manufacturerId;//厂商标识
-        public byte[] bcd_hardwareVersion;//硬件版本号
-        public byte[] bcd_softwareVersion = new byte[2];//软件版本号
-        public byte updateResult;//升级结果
-    }
+    
 
     /**
      * 位置基本信息，P22，表19
