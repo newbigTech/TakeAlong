@@ -1,11 +1,11 @@
 package com.zingfon.socket.util;
 
-import com.zingfon.socket.android_serialport_api.SerialPort;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import android_serialport_api.SerialPort;
 
 /**
  * Created by 李荣修 on 2016/11/9 9:56
