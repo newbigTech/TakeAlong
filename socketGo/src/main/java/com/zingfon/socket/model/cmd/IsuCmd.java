@@ -22,4 +22,34 @@ public class IsuCmd {
         public byte updateResult;//升级结果。见表18，p21
     }
 
+    /**
+     * 位置基本信息，P22，表19
+     */
+    public class D_0x0200 {
+        //位置基本信息
+        public int alarmFlag;//报警标志。见表20，p22
+        public int stateFlag;//状态。见表21，p23
+        public int latitude;//纬度，0.001'
+        public int longitude;//经度，0.001'
+        public short speed;//速度，0.1km/h
+        public byte bearing;//方向。0-179，每刻度为两度，正北为0，顺时针
+        public byte[] bcd_gpsTime = new byte[6];//6位BCD时间。YYMMDDmmss
+        public LBSExtra mLBSExtra = null;//根据消息头中的长度字段，确定是否存在位置附加信息项列表。
+
+        //位置附加信息项
+        public class LBSExtra {
+            public byte extraId;//附加信息ID。1~255
+            public byte extraLength;//附加信息长度。
+            public Object extraMsg;//附加信息。见表23，p24
+        }
+
+    }
+
+    /**
+     * 位置跟踪信息汇报
+     */
+    public class D_0x0202 extends D_0x0200 {
+
+    }
+
 }

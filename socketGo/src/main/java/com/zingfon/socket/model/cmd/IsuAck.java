@@ -27,4 +27,13 @@ public class IsuAck {
         }
     }
 
+    /**
+     * 位置信息查询应答  p24,表24
+     */
+    public class D_0x0201 {
+        public short responseId;//应答流水号汇报。对应的位置查询消息的流水号
+        public IsuCmd.D_0x0200 lbsData;//位置定位数据。
+    }
+
+
 }

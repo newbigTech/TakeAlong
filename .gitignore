@@ -38,3 +38,7 @@ captures/
 
 # Keystore files
 *.jks
+ 
+# JNI temp or generated files
+.DS_Store
+.externalNativeBuild

@@ -55,4 +55,21 @@ public class CenterCmd {
         }
     }
 
+    /**
+     * 位置信息查询  p24，10.3.5.10
+     * 专用应答D_0x0201
+     */
+    public class C_0x8201 {
+
+    }
+
+    /**
+     * 位置跟踪控制  p24,表25
+     */
+    public class C_0x8202 {
+        public byte attribute;//属性
+        public short interval;//时间间隔或距离间隔
+        public int sustain;//持续时间或持续距离
+    }
+
 }

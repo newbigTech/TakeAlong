@@ -8,27 +8,8 @@ package com.zingfon.socket.model.cmd;
  * 数据类型：UINT8=byte（1字节）、UINT16=short（2字节）、UINT32=int（4字节）、BCD[n]=byte[n]加前缀bcd_
  */
 public class Server_CMD {
-    
 
     
-
-    
-
-    
-
-    /**
-     * 位置信息查询  p24，10.3.5.10
-     */
-    public final int C_0x8201 = 0x8201;
-
-    /**
-     * 位置跟踪控制  p24,表25
-     */
-    public class C_0x8202 {
-        public byte attribute;//属性
-        public short timeSpaceOrDistanceSpace;//时间间隔或距离间隔
-        public int timeContinueOrDistanceContinue;//持续时间或持续距离
-    }
 
     /**
      * 文本信息下发  p25,表27

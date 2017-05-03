@@ -11,10 +11,6 @@ public class ISU_CMD {
     
 
     /**
-     * 心跳指令，P16，10.3.5.3
-     */
-    public final static short D_0x0002 = 0x0002;
-    /**
      * 运价参数查询指令  p45,10.4.2.2
      */
     public final int D_0x0004 = 0x0004;
@@ -31,26 +27,7 @@ public class ISU_CMD {
 
     
 
-    /**
-     * 位置基本信息，P22，表19
-     */
-    public class D_0x0200 {
-        public int alarmFlag;//报警标志
-        public int stateFlag;//状态
-        public int latitude;//纬度，0.001'
-        public int longitude;//经度，0.001'
-        public short speed;//速度，0.1km/h
-        public byte bearing;//方向，0-179
-        public byte[] bcd_gpsTime = new byte[6];//6位BCD时间
-    }
-
-    /**
-     * 位置信息查询应答   p24,表24
-     */
-    public class D_0x0201 {
-        public short responseId;//应答流水号汇报
-        // public unknown;//位置定位数据
-    }
+    
 
     /**
      * 位置汇报数据补传  p25,表26
@@ -79,7 +56,7 @@ public class ISU_CMD {
      */
     public class D_0x0500 {
         public short responseId; //应答流水号。对应的车辆控制消息的流水号
-        public D_0x0200 responseLocation; //位置信息汇报（0x0200）消息体。根据对应状态位判断控制成功与否
+        public IsuCmd.D_0x0200 responseLocation; //位置信息汇报（0x0200）消息体。根据对应状态位判断控制成功与否
     }
 
     /**
@@ -130,7 +107,7 @@ public class ISU_CMD {
      * 上班签到信息上传命令  p33，表54
      */
     public class D_0x0B03 {
-        public D_0x0200 locationData; //位置基本信息。详见0x0200交易
+        public IsuCmd.D_0x0200 locationData; //位置基本信息。详见0x0200交易
         public byte[] businessLicense = new byte[16]; //企业经营许可证。ASCII字符，长度不足16byte，右边补0x00
         public byte[] driverLicense = new byte[19]; //驾驶员从业资格证。ASCII字符，长度不足19byte，右边补0x00
         public byte[] plateNumber = new byte[6]; //车牌号。车牌号，ASCII字符，不包含汉子
@@ -142,7 +119,7 @@ public class ISU_CMD {
      * 下班签退信息上传命令  p33，表55
      */
     public class D_0x0B04 {
-        public D_0x0200 locationData; //位置基本信息。详见0x0200交易
+        public IsuCmd.D_0x0200 locationData; //位置基本信息。详见0x0200交易
         public byte[] businessLicense = new byte[16]; //企业经营许可证。ASCII字符，长度不足16byte，右边补0x00
         public byte[] driverLicense = new byte[19]; //驾驶员从业资格证。ASCII字符，长度不足19byte，右边补0x00
         public byte[] plateNumber = new byte[6]; //车牌号。车牌号，ASCII字符，不包含汉子
@@ -169,8 +146,8 @@ public class ISU_CMD {
      * 运营数据上传命令  p34，表56
      */
     public class D_0x0B05 {
-        public D_0x0200 toHeavyLocation; //空转重时车位置信息。见0x0200消息体数据格式
-        public D_0x0200 toLightLocation; //重转空时车位置基本信息。见0x0200消息体数据格式
+        public IsuCmd.D_0x0200 toHeavyLocation; //空转重时车位置信息。见0x0200消息体数据格式
+        public IsuCmd.D_0x0200 toLightLocation; //重转空时车位置基本信息。见0x0200消息体数据格式
         public int transportId; //营运ID。开始营运时的时间戳，按10.2.2营运ID的生成规则生成
         public int commentId; //评价ID。评价时的时间戳，按10.2.2营运ID的生成规则生成。若没有评价，则以0x00填充
         public byte commentOption; //评价选项。0x00：没有做出评价；0x01：满意；0x02：一般；0x03：不满意；0x04：投诉
