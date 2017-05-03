@@ -2,7 +2,6 @@ package com.zingfon.socket.model;
 
 import com.zingfon.socket.dagger2.component.DaggerSocketClientComponent;
 import com.zingfon.socket.dagger2.module.SocketClientModule;
-import com.zingfon.socket.model.cmd.ISU_CMD;
 import com.zingfon.socket.model.infc.ISUSocketClientInfc;
 import com.zingfon.socket.present.infc.StorePresentInfc;
 import com.zingfon.socket.util.SocketUtil;
@@ -80,7 +79,8 @@ public class ISUSocketClient implements ISUSocketClientInfc {
     }
 
     public void sendHeartBeat() {
-        byte[] heartBeat = buildMessage(ISU_CMD.D_0x0002, null);
+        // TODO: 2017/5/3 心跳待修理 
+        byte[] heartBeat = buildMessage((short) 0x0002, null);
         sendBytes(heartBeat);
     }
 
