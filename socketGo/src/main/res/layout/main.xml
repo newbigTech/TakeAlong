@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="hello" />
+
+    <Button
+        android:id="@+id/ButtonSent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="connect" />
+
+    <Button
+        android:id="@+id/ButtonSent1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="send" />
+
+    <Button
+        android:id="@+id/ButtonRec"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="recive" />
+
+    <EditText
+        android:id="@+id/EditTextEmission"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Emission"
+        android:lines="1" />
+
+</LinearLayout>
