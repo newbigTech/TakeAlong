@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("SerialPort", "allDevicesPath:" + Arrays.toString(allDevicesPath));
 
         try {
-            sp = new SerialPort(new File("/dev/ttyHSL0"), 9600, 0);
+            sp = new SerialPort(new File("/dev/ttyGS2"), 9600, 0);
             mInputStream = (FileInputStream) sp.getInputStream();
             mOutputStream = (FileOutputStream) sp.getOutputStream();
         } catch (SecurityException | IOException e) {
