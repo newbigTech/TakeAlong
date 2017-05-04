@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import android_serialport_api.SerialPort;
 
 /**
- * Created by 李荣修 on 2016/11/9 9:56
+ *
  */
 public class SerialPortUtil {
     private static SerialPortUtil portUtil;
@@ -16,11 +16,11 @@ public class SerialPortUtil {
     private OutputStream mOutputStream;
     private InputStream mInputStream;
     private ReadThread mReadThread;
-    //private OnDataReceiveListener mSerialPortListener = null;
+    private OnDataReceiveListener mSerialPortListener = null;
 
-//    public interface OnDataReceiveListener {
-//        public void onDataReceive(byte[] buffer, int size);
-//    }
+    public interface OnDataReceiveListener {
+        void onDataReceive(byte[] buffer, int size);
+    }
 
     public static SerialPortUtil getInstance() {
         if (null == portUtil) {
@@ -33,7 +33,7 @@ public class SerialPortUtil {
     /**
      * 初始化串口信息
      */
-    public void onCreate() {
+    private void onCreate() {
         if (mSerialPort == null) {
             /* Open the serial port */
             String DEV_PATH = "/dev/ttyHSL0";//0是计价器，1是广告灯
@@ -52,9 +52,9 @@ public class SerialPortUtil {
         }
     }
 
-//    public void setOnDataReceiveListener(OnDataReceiveListener dataReceiveListener) {
-//        mSerialPortListener = dataReceiveListener;
-//    }
+    public void setOnDataReceiveListener(OnDataReceiveListener dataReceiveListener) {
+        mSerialPortListener = dataReceiveListener;
+    }
 
     private class ReadThread extends Thread {
         @Override
@@ -80,7 +80,9 @@ public class SerialPortUtil {
     }
 
     private void onDataReceive(byte[] buffer, int size) {
-
+        if (mSerialPortListener != null) {
+            mSerialPortListener.onDataReceive(buffer, size);
+        }
     }
 
     /**

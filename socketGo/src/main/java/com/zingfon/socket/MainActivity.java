@@ -41,20 +41,29 @@ public class MainActivity extends AppCompatActivity {
         String[] allDevicesPath = finder.getAllDevicesPath();
         Log.d("SerialPort", "allDevicesPath:" + Arrays.toString(allDevicesPath));
 
+
         try {
-            sp = new SerialPort(new File("/dev/ttyGS2"), 9600, 0);
-            mInputStream = (FileInputStream) sp.getInputStream();
-            mOutputStream = (FileOutputStream) sp.getOutputStream();
+            sp = new SerialPort(new File("/dev/ttyHSL0"), 115200, 0);
         } catch (SecurityException | IOException e) {
             e.printStackTrace();
             DisplayError(e.getMessage());
         }
+        mInputStream = (FileInputStream) sp.getInputStream();
+        mOutputStream = (FileOutputStream) sp.getOutputStream();
+
 
         mReception = (EditText) findViewById(R.id.EditTextEmission);
 
         final Button buttonSetup = (Button) findViewById(R.id.ButtonSent);
         buttonSetup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (mReadThread == null) {
+                    mReadThread = new ReadThread();
+                }
+
+                if (!mReadThread.isInterrupted()) {
+                    mReadThread.interrupt();
+                }
                 mReadThread = new ReadThread();
                 mReadThread.start();
                 Toast.makeText(getApplicationContext(), "connect", Toast.LENGTH_SHORT).show();
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     mOutputStream.write('\n');
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.d("SerialPort", e.getMessage());
                 }
                 Toast.makeText(getApplicationContext(), "send", Toast.LENGTH_SHORT).show();
             }
@@ -81,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonrec = (Button) findViewById(R.id.ButtonRec);
         buttonrec.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (mReadThread != null && !mReadThread.isInterrupted()) {
+                    return;
+                }
                 int size;
-
                 try {
                     byte[] buffer = new byte[64];
                     if (mInputStream == null) return;
@@ -127,7 +139,12 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return;
                 }
-                mReception.append("recive");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mReception.append("recive\t");
+                    }
+                });
             }
         }
     }
